@@ -1,0 +1,20 @@
+{
+  "name": "terminal-calculator",
+  "version": "1.0.0",
+  "description": "A simple terminal-based calculator built with Node.js and TypeScript",
+  "main": "dist/calculator.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": ["calculator", "terminal", "typescript"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
+
