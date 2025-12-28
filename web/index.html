@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        /* Basic styling for a clean, beginner-friendly interface */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .calculator-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-calculate {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-calculate:hover {
+            background-color: #45a049;
+        }
+
+        .btn-clear {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background-color: #da190b;
+        }
+
+        .btn-clear-history {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .btn-clear-history:hover {
+            background-color: #e68900;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result.error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .history-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .history-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .history-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .history-item {
+            padding: 8px;
+            background-color: #f9f9f9;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            border-left: 3px solid #4CAF50;
+        }
+
+        .history-empty {
+            color: #999;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Calculator</h1>
+        
+        <!-- Input fields for numbers and operation -->
+        <div class="input-group">
+            <label for="num1">First Number:</label>
+            <input type="number" id="num1" step="any" placeholder="Enter first number">
+        </div>
+
+        <div class="input-group">
+            <label for="operation">Operation:</label>
+            <select id="operation">
+                <option value="+">+ (Addition)</option>
+                <option value="-">- (Subtraction)</option>
+                <option value="*">× (Multiplication)</option>
+                <option value="/">÷ (Division)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="num2">Second Number:</label>
+            <input type="number" id="num2" step="any" placeholder="Enter second number">
+        </div>
+
+        <!-- Buttons for calculate and clear -->
+        <div class="button-group">
+            <button class="btn-calculate" id="calculateBtn">Calculate</button>
+            <button class="btn-clear" id="clearBtn">Clear</button>
+        </div>
+
+        <!-- Result display area -->
+        <div class="result" id="result">Result will appear here</div>
+
+        <!-- History section -->
+        <div class="history-section">
+            <h2>Calculation History</h2>
+            <div class="history-list" id="historyList">
+                <div class="history-empty">No calculations yet</div>
+            </div>
+            <button class="btn-clear-history" id="clearHistoryBtn">Clear History</button>
+        </div>
+    </div>
+
+    <!-- Load the compiled JavaScript file -->
+    <script src="app.js"></script>
+</body>
+</html>
+
