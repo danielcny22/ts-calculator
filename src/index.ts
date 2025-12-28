@@ -55,11 +55,40 @@ function isValidOperation(operation: string): boolean {
   return operation === '+' || operation === '-' || operation === '*' || operation === '/';
 }
 
+// Array to store calculation history
+// Each calculation will be stored as a string like "5 + 3 = 8"
+const calculationHistory: string[] = [];
+
 // Helper function to check if the user wants to quit
 // Returns true if they typed 'q', 'quit', or 'no' (case-insensitive)
 function wantsToQuit(input: string): boolean {
   const lowerInput = input.toLowerCase().trim();
   return lowerInput === 'q' || lowerInput === 'quit' || lowerInput === 'no';
+}
+
+// Function to display all calculation history
+// This prints each calculation that has been stored in the history array
+function showHistory(): void {
+  if (calculationHistory.length === 0) {
+    // If there are no calculations yet, let the user know
+    console.log('\nNo calculations in history yet.\n');
+  } else {
+    // Print a header and then each calculation on its own line
+    console.log('\n=== Calculation History ===');
+    calculationHistory.forEach((calc, index) => {
+      // Show each calculation with a number (1, 2, 3, etc.)
+      console.log(`${index + 1}. ${calc}`);
+    });
+    console.log(''); // Add a blank line at the end for spacing
+  }
+}
+
+// Function to clear the calculation history
+// This removes all calculations from the history array
+function clearHistory(): void {
+  // Remove all items from the array by setting its length to 0
+  calculationHistory.length = 0;
+  console.log('\nHistory cleared!\n');
 }
 
 // This function performs one calculation
@@ -129,6 +158,11 @@ async function performCalculation(): Promise<void> {
     // Step 5: Print the result clearly
     // We only reach here if no errors occurred
     console.log(`\nResult: ${num1} ${operation} ${num2} = ${result}\n`);
+    
+    // Store this calculation in the history array
+    // Format: "5 + 3 = 8"
+    const calculationString = `${num1} ${operation} ${num2} = ${result}`;
+    calculationHistory.push(calculationString);
   } catch (error) {
     // If an error occurred (like division by zero), show the error message
     console.log(`\nError: ${error instanceof Error ? error.message : 'Something went wrong'}\n`);
@@ -153,8 +187,22 @@ async function main() {
     // Perform one calculation
     await performCalculation();
 
-    // Ask if they want to calculate again
-    const continueInput = await askQuestion('Calculate again? (Press Enter to continue, or type q/quit/no to exit): ');
+    // Ask if they want to calculate again, view history, or clear history
+    const continueInput = await askQuestion('Calculate again? (Press Enter to continue, type "history" to view past calculations, type "clear" to clear history, or type q/quit/no to exit): ');
+    
+    // Check if they want to view history
+    // Trim removes extra spaces, toLowerCase makes it case-insensitive
+    const trimmedInput = continueInput.toLowerCase().trim();
+    if (trimmedInput === 'history') {
+      showHistory(); // Display all past calculations
+      continue; // Go back to the start of the loop to perform another calculation
+    }
+    
+    // Check if they want to clear history
+    if (trimmedInput === 'clear') {
+      clearHistory(); // Remove all calculations from history
+      continue; // Go back to the start of the loop to perform another calculation
+    }
     
     // Check if they want to quit
     if (wantsToQuit(continueInput)) {
